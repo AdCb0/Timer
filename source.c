@@ -12,10 +12,9 @@ void delay(int DELAY);
 /* Global variables */
 
 int DELAY = 4350;
-int SIGNALS = 4;
 
 /* Global struct's */
-struct my_time {int hours; int minutes; int seconds; } timer,need, left;
+struct my_time {int hours; int minutes; int seconds; } timer, need, left;
 
 /* Code */
 int main(int argc, char *argv[])
