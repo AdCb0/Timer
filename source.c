@@ -2,7 +2,6 @@
 #include <locale.h>
 #include <stdlib.h>
 
-
 /* Functions */
 
 void display(void);
@@ -35,14 +34,14 @@ if(argc>1)
 	} 
 }
 
-	printf("Это таймер\n");
+	puts("Это таймер");
 	printf("\nТекущее значение: %i\n", DELAY);
 	
 	start_prog:
 	timer.hours = 0;
 	timer.minutes = 0;
 	timer.seconds = 0;
-	
+
 	secs: 	printf("\nВведите секунды: ");	p = gets(f);	s = atoi(p); 	if( s>59 | s<0) 	goto secs; 	left.seconds =	need.seconds = s;
 	mins: 	printf("Введите минуты: "); 	p = gets(f); 	s = atoi(p); 	if( s>59 | s<0) 	goto mins; 	left.minutes =	need.minutes = s;
 	hours: 	printf("Введите часы: "); 		p = gets(f); 	s = atoi(p); 	if( s<0) 			goto mins; 	left.hours	 =	need.hours 	 = s;
@@ -106,9 +105,9 @@ void update(int DELAY)
 void display(void)
 {
 	if(need.hours !=0 | need.minutes !=0 | need.seconds !=0)
-	printf("%02d:%02d:%02d	-	 %02d:%02d:%02d\n", timer.hours, timer.minutes, timer.seconds, left.hours, left.minutes, left.seconds);
+	printf("%02i:%02i:%02i	-	 %02i:%02i:%02i\n", timer.hours, timer.minutes, timer.seconds, left.hours, left.minutes, left.seconds);
 	else 
-	printf("%02d:%02d:%02d	-	 --:--:--\n", timer.hours, timer.minutes, timer.seconds);
+	printf("%02i:%02i:%02i	-	 --:--:--\n", timer.hours, timer.minutes, timer.seconds);
 }
 
 void delay(int DELAY)
