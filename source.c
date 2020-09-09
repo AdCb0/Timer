@@ -11,10 +11,10 @@ void delay(int DELAY);
 
 /* Global variables */
 
-int DELAY = 4350;
+double DELAY = 4265.4166666666666666666666666667;
 
 /* Global struct's */
-struct my_time {int hours; int minutes; int seconds; } timer, need, left;
+struct my_time {int hours; int minutes; int seconds; } timer,need, left;
 
 /* Code */
 int main(int argc, char *argv[])
@@ -26,7 +26,7 @@ char *p, f[5000];
 if(argc>1) if(! atoi(argv[1])=='\0') DELAY = atoi(argv[1]);
 
 	printf("Это таймер\n");
-	printf("\nТекущее значение: %i\n", DELAY);
+	printf("\nТекущее значение: %g\n", DELAY);
 	
 	start_prog:
 	timer.hours = 0;
