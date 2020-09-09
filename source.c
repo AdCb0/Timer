@@ -11,7 +11,7 @@ void delay(int DELAY);
 
 /* Global variables */
 
-double DELAY = 4265.4166666666666666666666666667;
+double DELAY = 4434.5833333333333333333333333331;
 
 /* Global struct's */
 struct my_time {int hours; int minutes; int seconds; } timer,need, left;
