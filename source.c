@@ -35,7 +35,7 @@ if(argc>1) if(! atoi(argv[1])=='\0') DELAY = atoi(argv[1]);
 	
 	secs: 	printf("\nВведите секунды: ");	p = gets(f);	s = atoi(p); 	if( s>59 | s<0) 	goto secs; 	left.seconds =	need.seconds = s;
 	mins: 	printf("Введите минуты: "); 	p = gets(f); 	s = atoi(p); 	if( s>59 | s<0) 	goto mins; 	left.minutes =	need.minutes = s;
-	hours: 	printf("Введите часы: "); 		p = gets(f); 	s = atoi(p); 	if( s<0) 			goto mins; 	left.hours	 =	need.hours 	 = s;
+	hours: 	printf("Введите часы: "); 	p = gets(f); 	s = atoi(p); 	if( s<0) 		goto mins; 	left.hours   =	need.hours   = s;
 	printf("\n");
 	
 	
