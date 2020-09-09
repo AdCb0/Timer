@@ -6,12 +6,12 @@
 /* Functions */
 
 void display(void);
-void update(void);
+void update(int DELAY);
 void delay(int DELAY);
 
 /* Global variables */
 
-double DELAY = 4434.5833333333333333333333333331;
+
 
 /* Global struct's */
 struct my_time {int hours; int minutes; int seconds; } timer,need, left;
@@ -20,13 +20,23 @@ struct my_time {int hours; int minutes; int seconds; } timer,need, left;
 int main(int argc, char *argv[])
 {	setlocale(LC_ALL, "Rus");
 
-int s = 0;
+register int DELAY = 4320;
+
+FILE *fp;
+int s = 0, create_files=0;
 char *p, f[5000];
-	
-if(argc>1) if(! atoi(argv[1])=='\0') DELAY = atoi(argv[1]);
+
+if(argc>1) 
+{ 
+	for(int p=0; p<argc ;++p) 
+	{
+		if(! atoi(argv[p])=='\0') DELAY = atoi(argv[p]);
+		else if(*argv[p] == *"file") create_files = 1;
+	} 
+}
 
 	printf("Это таймер\n");
-	printf("\nТекущее значение: %g\n", DELAY);
+	printf("\nТекущее значение: %i\n", DELAY);
 	
 	start_prog:
 	timer.hours = 0;
@@ -35,16 +45,18 @@ if(argc>1) if(! atoi(argv[1])=='\0') DELAY = atoi(argv[1]);
 	
 	secs: 	printf("\nВведите секунды: ");	p = gets(f);	s = atoi(p); 	if( s>59 | s<0) 	goto secs; 	left.seconds =	need.seconds = s;
 	mins: 	printf("Введите минуты: "); 	p = gets(f); 	s = atoi(p); 	if( s>59 | s<0) 	goto mins; 	left.minutes =	need.minutes = s;
-	hours: 	printf("Введите часы: "); 	p = gets(f); 	s = atoi(p); 	if( s<0) 		goto mins; 	left.hours   =	need.hours   = s;
+	hours: 	printf("Введите часы: "); 		p = gets(f); 	s = atoi(p); 	if( s<0) 			goto mins; 	left.hours	 =	need.hours 	 = s;
 	printf("\n");
-	
-	
+	if(create_files==1) {fp =  fopen("1 - Начало", "wb+"); fclose (fp); }
+
 	for(;;)
 	{
-		update();
+		update(DELAY);
 		display();
 		if(timer.seconds==need.seconds && timer.minutes==need.minutes && timer.hours==need.hours)
 		{
+			if(create_files==1) { fp =  fopen("2 - Конец", "wb+"); fclose (fp); }
+			
 			printf("\n------------------------------\n\nВремя вышло\n\n------------------------------\n");
 			printf("\a\a\a\a");
 			break;
@@ -54,7 +66,7 @@ if(argc>1) if(! atoi(argv[1])=='\0') DELAY = atoi(argv[1]);
 	goto start_prog;
 }
 
-void update(void)
+void update(int DELAY)
 {
 	timer.seconds++;
 	left.seconds--;
