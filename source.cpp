@@ -1,6 +1,7 @@
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
 #include <time.h>
-using namespace std;
 
 struct time
 {
@@ -9,7 +10,7 @@ struct time
 
 int main()
 {	setlocale(LC_ALL, "Rus");
-cout << "Это таймер\n";
+printf("Это таймер\n");
 start:;
 
 char 
@@ -24,11 +25,11 @@ sec = 0,
 temp_sec = 0;
 
 
-cout << "\n";
+printf("\n");
 secs: 	printf("Секунды: ");	ch2 = gets(ch1);	temp_int = atoi(ch2); 	if( temp_int>59 | temp_int<0) 	goto secs;	sec_need = sec_need + temp_int;
 mins: 	printf("Минуты: "); 	ch2 = gets(ch1); 	temp_int = atoi(ch2); 	if( temp_int>59 | temp_int<0) 	goto mins;	sec_need = sec_need + temp_int * 60;
 hours: 	printf("Часы: "); 		ch2 = gets(ch1); 	temp_int = atoi(ch2); 	if( temp_int<0) 				goto hours;	sec_need = sec_need + temp_int * 3600;
-cout << "\n";
+printf("\n");
 
 sec = time(NULL);
 sec_need = sec_need + sec;
@@ -56,7 +57,7 @@ for(;;)
 		printf("%02d:%02d:%02d	-	%02d:%02d:%02d\r",p.hour,p.min,p.sec,l.hour,l.min,l.sec);
 		if(sec >= sec_need)
 		{
-			cout << "\n\n------------------------------\n\nВремя вышло\n\n------------------------------\n\a\a\a\a\a";
+			printf("\n\n------------------------------\n\nВремя вышло\n\n------------------------------\n\a\a\a\a\a");
 			goto start;
 		}
 		temp_sec = sec;
