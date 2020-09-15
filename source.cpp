@@ -33,6 +33,8 @@ cout << "\n";
 sec = time(NULL);
 sec_need = sec_need + sec;
 sec_start = sec;
+
+if(sec != sec_need)
 for(;;) 
 {
 	
@@ -60,6 +62,25 @@ for(;;)
 		temp_sec = sec;
 	}
 }
+else
+for(;;)
+{
+	sec = time(NULL);
 
-return 0;
+	if(temp_sec != sec )
+	{
+		p.sec = 0; p.min = 0; p.hour = 0;
+	
+		p.sec = sec - sec_start;
+		while(p.sec >= 60) { p.sec = p.sec - 60; ++p.min; }
+		while(p.min >= 60) { p.min = p.min - 60; ++p.hour;}
+				
+		printf("%02d:%02d:%02d	-	--:--:--\r",p.hour,p.min,p.sec);
+
+		temp_sec = sec;
+	}
+	
+}
+
+goto start;
 }
