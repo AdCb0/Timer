@@ -7,13 +7,16 @@
 #define RU 0
 #define EN 1
 
-#define LANGUAGE RU
+#define LANGUAGE EN
 
 
 #if LANGUAGE == RU
 
 
 #define TEXT_THIS_TIMER 	"Это таймер"
+#define TEXT_WRONG_ARG_SEC	"Неверный аргумент (Секунды)"
+#define TEXT_WRONG_ARG_MIN	"Неверный аргумент (Минуты)"
+#define TEXT_WRONG_ARG_HOUR	"Неверный аргумент (Часы)"
 #define TEXT_ENTER_SEC 		"Введите секунды: "
 #define TEXT_ENTER_MIN		"Введите минуты: "
 #define TEXT_ENTER_HOUR 	"Введите часы: "
@@ -24,6 +27,9 @@
 
 
 #define TEXT_THIS_TIMER 	"This is a timer"
+#define TEXT_WRONG_ARG_SEC	"Wrong argument (Seconds)"
+#define TEXT_WRONG_ARG_MIN	"Wrong argument (Minutes)"
+#define TEXT_WRONG_ARG_HOUR	"Wrong argument (Hours)"
 #define TEXT_ENTER_SEC 		"Enter seconds: "
 #define TEXT_ENTER_MIN 		"Enter minuts: "
 #define TEXT_ENTER_HOUR		"Enter hours: "
@@ -38,8 +44,38 @@ struct time
 	int sec, min, hour;
 }l, p;
 
-int main()
+int main(int argc, char *args[])
 {	setlocale(LC_ALL, "Rus");
+
+int 
+temp_int = 0,
+sec_need = 0,
+sec_start = 0,
+sec = 0,
+temp_sec = 0;
+
+if(argc > 1)
+{
+	temp_int = atoi(args[1]); 					if( temp_int>59 | temp_int<0)	printf("%s\n", TEXT_WRONG_ARG_SEC); 
+	if(argc > 2) { temp_int = atoi(args[2]); 	if( temp_int>59 | temp_int<0)	printf("%s\n", TEXT_WRONG_ARG_MIN); }
+	if(argc > 3) { temp_int = atoi(args[3]); 	if( temp_int<0)					printf("%s\n", TEXT_WRONG_ARG_HOUR);}
+	printf("\n");
+	temp_int = atoi(args[1]); 	if( temp_int>59 | temp_int<0)		goto startprog;	sec_need = sec_need + temp_int;
+	if(argc > 2)
+	{
+		temp_int = atoi(args[2]); 	if( temp_int>59 | temp_int<0)	goto startprog;	sec_need = sec_need + temp_int * 60;
+		if(argc > 3)
+		{
+			temp_int = atoi(args[3]); 	if( temp_int<0)				goto startprog;	sec_need = sec_need + temp_int * 3600;
+		}
+	}
+	
+printf("%s\n\n",TEXT_THIS_TIMER);
+goto RunTimer;
+}
+
+startprog:;
+
 printf("%s\n",TEXT_THIS_TIMER);
 start:;
 
@@ -47,11 +83,10 @@ char
 ch1[5000],
 *ch2;
 
-int 
-temp_int = 0,
-sec_need = 0,
-sec_start = 0,
-sec = 0,
+temp_int = 0;
+sec_need = 0;
+sec_start = 0;
+sec = 0;
 temp_sec = 0;
 
 
@@ -61,6 +96,7 @@ mins: 	printf("%s",TEXT_ENTER_MIN); 	ch2 = gets(ch1); 	temp_int = atoi(ch2); 	if
 hours: 	printf("%s",TEXT_ENTER_HOUR); 	ch2 = gets(ch1); 	temp_int = atoi(ch2); 	if( temp_int<0) 				goto hours;	sec_need = sec_need + temp_int * 3600;
 printf("\n");
 
+RunTimer:
 sec = time(NULL);
 sec_need = sec_need + sec;
 sec_start = sec;
